@@ -9,8 +9,9 @@ const WebSocketChat = () => {
     const [inputMessage, setInputMessage] = useState('');
     const [connectionStatus, setConnectionStatus] = useState('Disconnected');
     const socketRef = useRef(null);
-    const websocketURL = `${import.meta.env.VITE_WEBSOCKET_URL}/ws/chat/ ?? 'wss://llmchat.up.railway.app/ws/chat/`;
-
+    // const websocketURL = `${import.meta.env.VITE_WEBSOCKET_URL}/ws/chat/`;
+    const websocketURL = 'wss://llmchat.up.railway.app/ws/chat/';
+    
     // console.log('Base URL:', import.meta.env.VITE_WEBSOCKET_URL);
     // console.log('Full WebSocket URL:', `${import.meta.env.VITE_WEBSOCKET_URL}/ws/chat/`);
 
