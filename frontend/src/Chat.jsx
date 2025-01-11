@@ -9,6 +9,10 @@ const WebSocketChat = () => {
     const [inputMessage, setInputMessage] = useState('');
     const [connectionStatus, setConnectionStatus] = useState('Disconnected');
     const socketRef = useRef(null);
+    const websocketURL = `${import.meta.env.VITE_WEBSOCKET_URL}/ws/chat/`;
+
+    // console.log('Base URL:', import.meta.env.VITE_WEBSOCKET_URL);
+    // console.log('Full WebSocket URL:', `${import.meta.env.VITE_WEBSOCKET_URL}/ws/chat/`);
 
     // apply markdown to response messages
     const createMarkup = (markdown) => {
@@ -17,7 +21,7 @@ const WebSocketChat = () => {
 
     // Initialize WebSocket connection
     useEffect(() => {
-        const websocket = new WebSocket('ws://localhost:8000/ws/chat/');
+        const websocket = new WebSocket(websocketURL);  //'ws://localhost:8000/ws/chat/'
         socketRef.current = websocket;
 
         websocket.onopen = () => {

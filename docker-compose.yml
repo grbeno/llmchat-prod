@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: .
+    container_name: llmchat
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app  # hot reload, override .dockerignore
+    ports:
+      - 8000:8000
+    depends_on:
+      #- db
+      - redis
+    #environment:
+      # .env file
+      #- "SECRET_KEY=${SECRET_KEY}"
+      #- "DEBUG=True"
+      #- "DATABASE_URL=postgres://postgres:postgres@db:5432/postgres"
+      #- "SSL_REQUIRED=False"
+      #- "OPENAI_API_KEY=${OPENAI_API_KEY}"
+  redis:
+    image: redis:latest
+    container_name: llmchat_redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - '6379:6379'

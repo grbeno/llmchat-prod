@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from environs import Env
+
+# Load the environment variables
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-lrvnb(by$#g-@@+drk6*d&3nuhgg68ddxc&rcy$!(6s2n)c5u0'
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -120,6 +126,8 @@ USE_TZ = True
 
 STATIC_URL = 'assets/'
 
+STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))  # production
+
 STATICFILES_DIRS = [ str(BASE_DIR.joinpath('static', 'assets')) ]
 
 # Default primary key field type
@@ -127,9 +135,13 @@ STATICFILES_DIRS = [ str(BASE_DIR.joinpath('static', 'assets')) ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 # Channels
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",          
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(env.str('REDISHOST', default="redis"), 6379)],
+        },           
      }    
  }
