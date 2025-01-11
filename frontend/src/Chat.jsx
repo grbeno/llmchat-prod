@@ -10,7 +10,13 @@ const WebSocketChat = () => {
     const [connectionStatus, setConnectionStatus] = useState('Disconnected');
     const socketRef = useRef(null);
     // const websocketURL = `${import.meta.env.VITE_WEBSOCKET_URL}/ws/chat/`;
-    const websocketURL = 'wss://llmchat.up.railway.app/ws/chat/';
+
+    if (window.location.host === 'localhost:8000') {
+        var websocketURL = 'ws://localhost:8000/ws/chat/';
+    } 
+    else {
+        var websocketURL = 'wss://llmchat.up.railway.app/ws/chat/';
+    }
     
     // console.log('Base URL:', import.meta.env.VITE_WEBSOCKET_URL);
     // console.log('Full WebSocket URL:', `${import.meta.env.VITE_WEBSOCKET_URL}/ws/chat/`);
