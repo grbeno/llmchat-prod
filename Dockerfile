@@ -15,9 +15,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy project
 COPY . /app/
-
-#EXPOSE 8000
-
-# Set executable permissions for entrypoint script
-RUN chmod +x /app/entrypoint.sh
-ENTRYPOINT ["/app/entrypoint.sh"]
