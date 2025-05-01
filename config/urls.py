@@ -12,6 +12,6 @@ urlpatterns = [
     re_path(r'^.*', React.as_view(), name='frontend'),
 
     # WebSocket
-    path('ws/chat/', ChatConsumer.as_asgi()),
+    # path('ws/chat/', ChatConsumer.as_asgi()),
     
 ]

@@ -1,0 +1,25 @@
+# Python specific
+**/__pycache__
+**/*.pyc
+
+db.sqlite3
+
+Railway/
+Local/
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+
+# Git
+.git
+.gitignore
+
+# Project specific
+README.md
+
+# Frontend
+# builded in local development, using static files from backend
+
+frontend/
