@@ -10,6 +10,7 @@ Local/
 #.dockerignore
 #docker-compose.yml
 .qodo
+commands.txt
 
 # frontend
 

@@ -1,0 +1,22 @@
+services:
+  backend:
+    build: .
+    container_name: llmchat
+    command: daphne -b 0.0.0.0 -p 8080 config.asgi:application
+    volumes:
+      - .:/app  # hot reload, override .dockerignore
+    ports:
+      - 8080:8080
+    env_file:
+      - ./.env
+    depends_on:  
+      - redis
+    
+  redis:
+    image: redis:latest
+    container_name: llmchat_redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - '6379:6379'
